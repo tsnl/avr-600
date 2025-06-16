@@ -5,6 +5,9 @@ public class Pickup : MonoBehaviour
     // Speed of rotation in degrees per second
     public float rotationSpeed = 90f;
 
+    // The sound to play when picked up
+    public AudioClip pickupSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,7 +28,12 @@ public class Pickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log($"Player picked up: {gameObject.name}");
-            // TODO: Add pickup logic here (e.g., increase score, play sound, etc.)
+            
+            if (pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            }
+            
             Destroy(gameObject);
         }
     }

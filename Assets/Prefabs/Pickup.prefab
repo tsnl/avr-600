@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 90
+  pickupSound: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
 --- !u!65 &6788353134687988126
 BoxCollider:
   m_ObjectHideFlags: 0

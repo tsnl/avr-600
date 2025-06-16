@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 1667124520}
   - component: {fileID: 1667124519}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PickupCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1875,6 +1875,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickup
       objectReference: {fileID: 0}
+    - target: {fileID: 8336792857390243065, guid: 8d7304c36c39e504591a647292481892, type: 3}
+      propertyPath: pickupCounterLabel
+      value: 
+      objectReference: {fileID: 1667124519}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

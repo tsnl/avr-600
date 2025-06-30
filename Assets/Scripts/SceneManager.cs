@@ -7,11 +7,15 @@ public class SceneManager : MonoBehaviour
     // Time allotted for this level in seconds:
     public int timeLimit;
 
-    // Next level to load when this one is completed:
+
+    // Next Unity Scene to load when this one is completed:
     public string nextLevelName;
 
-    // Next level to load if the player fails:
+    // Next Unity Scene to load if the player fails:
     public string failLevelName;
+
+    // Ascii map name to use for this scene:
+    public string asciiMapName;
 
     // Player avatar to position at start of scene:
     public GameObject playerAvatar;
@@ -189,13 +193,13 @@ public class SceneManager : MonoBehaviour
     }
     void Start()
     {
-        // Use the default Level0 map from AsciiMap
+        // Use the AsciiMap specified:
         try
         {
-            AsciiMap parsedMap = AsciiMap.Parse(AsciiMap.Level0);
+            AsciiMap parsedMap = AsciiMap.GetByName(asciiMapName);
             SetupSceneFromAsciiMap(parsedMap);
             InitializeTimer(); // Start the countdown timer
-            Debug.Log("Scene setup completed successfully using Level0!");
+            Debug.Log($"Scene setup completed successfully using {asciiMapName}!");
         }
         catch (System.ArgumentException e)
         {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Represents a parsed ASCII map for maze generation.
@@ -28,21 +29,125 @@ public class AsciiMap
   public List<Vector2Int> pickupPositions;
   public List<Vector2Int> endPositions;
   public Vector2Int startPosition;
+
+  // Level definitions as strings
+  private static readonly Dictionary<string, string> levelStrings = new Dictionary<string, string>
+  {
+    ["Level0"] = @"
+########
+#E     #
+# #### #
+# #  # #
+# #  #+#
+# #  # #
+# #### #
+#     S#
+########",
+
+    ["Level1"] = @"
+##########
+#S   #   #
+# ## # # #
+#    # # #
+#### # # #
+#    # # #
+# #####+##
+#       E#
+##########",
+
+    ["Level2"] = @"
+############
+#S    #    #
+# ### # ## #
+# # # # #  #
+# # #+# # ##
+# #   # #  #
+# ### # ## #
+#   #   #  #
+### ##### ##
+#        E #
+############",
+
+    ["Level3"] = @"
+##############
+#S  #        #
+# # # ###### #
+# # #      # #
+# # ##### ## #
+# #   +   #  #
+# ####### #  #
+#   #     # ##
+# # # ##### ##
+# #       # ##
+# ####### # ##
+#         # E#
+##############",
+
+    ["Level4"] = @"
+################
+#S   #         #
+# ## # ####### #
+# #  #       # #
+# # ##### ## # #
+# # #   # #  # #
+# # # # # ## # #
+# # # # #  # # #
+# # # #+## # # #
+# # #      # # #
+# # ######## # #
+# #          # #
+# ############ #
+#             E#
+################"
+  };
+
+  // Pre-constructed AsciiMap cache
+  private static readonly Dictionary<string, AsciiMap> levelMaps = new Dictionary<string, AsciiMap>();
+
+  // Static constructor to initialize all levels
+  static AsciiMap()
+  {
+    foreach (var kvp in levelStrings)
+    {
+      try
+      {
+        levelMaps[kvp.Key] = Parse(kvp.Value);
+      }
+      catch (System.ArgumentException e)
+      {
+        Debug.LogError($"Failed to parse level '{kvp.Key}': {e.Message}");
+      }
+    }
+  }
+
   /// <summary>
-  /// Default level - a simple 8x8 maze
+  /// Gets a pre-constructed AsciiMap by name.
   /// </summary>
-  public static readonly string Level0 =
-    @"
-    ########
-    #E     #
-    # #### #
-    # #  # #
-    # #  #+#
-    # #  # #
-    # #### #
-    #     S#
-    ########
-    ";
+  /// <param name="name">The name of the level (e.g., "Level0", "Level1", etc.)</param>
+  /// <returns>A pre-constructed AsciiMap instance</returns>
+  /// <exception cref="System.ArgumentException">Thrown when the level name is not found</exception>
+  public static AsciiMap GetByName(string name)
+  {
+    if (levelMaps.TryGetValue(name, out AsciiMap map))
+    {
+      return map;
+    }
+    throw new System.ArgumentException($"Level '{name}' not found. Available levels: {string.Join(", ", levelMaps.Keys)}");
+  }
+
+  /// <summary>
+  /// Gets all available level names.
+  /// </summary>
+  /// <returns>Array of available level names</returns>
+  public static string[] GetAvailableLevels()
+  {
+    return levelMaps.Keys.ToArray();
+  }
+
+  /// <summary>
+  /// Legacy property for backward compatibility - returns Level0
+  /// </summary>
+  public static string Level0 => levelStrings["Level0"];
 
   public AsciiMap()
   {

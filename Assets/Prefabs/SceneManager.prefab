@@ -284,14 +284,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f65c005b0a632e40ac845ea89881a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 30
-  nextLevelName: 
-  failLevelName: GameOver
+  timeLimit: 10
+  nextLevelName: GameOverWin
+  failLevelName: GameOverFail
   playerAvatar: {fileID: 0}
   hedgeElementPrefab: {fileID: 4005657740313707271, guid: 53de92cfcc4388c498828a2d700f5aa4, type: 3}
   pickupPrefab: {fileID: 6639135899748610118, guid: 8d7304c36c39e504591a647292481892, type: 3}
   finishPrefab: {fileID: 2001452091260592445, guid: fdc86b8c3734f3a4bb98bddef0441867, type: 3}
   pickupSound: {fileID: 8300000, guid: 0c008ee3ee72a4362a35be25fa5de043, type: 3}
+  gameOverSound: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
   pickupCounterLabel: {fileID: 4356698763300851988}
   timerLabel: {fileID: 4385896963072567692}
 --- !u!1 &6317431781602477583

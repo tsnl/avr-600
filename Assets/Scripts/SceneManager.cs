@@ -227,6 +227,8 @@ public class SceneManager : MonoBehaviour
     private void LoadFailLevel()
     {
         Debug.Log("Time's up! Loading fail level.");
+
+
         if (!string.IsNullOrEmpty(failLevelName))
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(failLevelName);

@@ -1,50 +1,28 @@
 using UnityEngine;
-using TMPro;
 
 public class Pickup : MonoBehaviour
 {
     // Speed of rotation in degrees per second.
-    // This should be the same across all Prefab instances.
     public float rotationSpeed = 90f;
 
-    // The sound to play when picked up.
-    // This should be the same across all Prefab instances.
-    public AudioClip pickupSound;
-
-    // The label to update with the pickup count.
-    // This should be the same across all Prefab instances.
-    public TextMeshProUGUI pickupCounterLabel;
-
-    // Static lock and flag for one-time initialization
-    private static readonly object labelInitLock = new object();
-    private static bool labelInitialized = false;
-    private static TextMeshProUGUI staticPickupCounterLabelRef;
-    private static int pickupCount = 0;
-    private static int totalPickups = 1;
-    
-    // Helper to update the label
-    private static void UpdatePickupLabel()
-    {
-        if (staticPickupCounterLabelRef != null)
-        {
-            staticPickupCounterLabelRef.text = $"Pickups: {pickupCount}/{totalPickups}";
-        }
-    }
+    // Reference to the SceneManager (found by tag)
+    private SceneManager sceneManager;
 
     void Start()
     {
-        // One-time label initialization
-        lock (labelInitLock)
+        // Find the SceneManager by tag
+        GameObject sceneManagerObject = GameObject.FindGameObjectWithTag("SceneManager");
+        if (sceneManagerObject != null)
         {
-            if (!labelInitialized && pickupCounterLabel != null)
+            sceneManager = sceneManagerObject.GetComponent<SceneManager>();
+            if (sceneManager == null)
             {
-                staticPickupCounterLabelRef = pickupCounterLabel;
-                pickupCount = 0;
-                // Count all GameObjects with the "Pickup" tag
-                totalPickups = GameObject.FindGameObjectsWithTag("Pickup").Length;
-                UpdatePickupLabel();
-                labelInitialized = true;
+                Debug.LogError("GameObject with 'SceneManager' tag does not have a SceneManager component!");
             }
+        }
+        else
+        {
+            Debug.LogError("No GameObject with 'SceneManager' tag found!");
         }
     }
 
@@ -61,20 +39,17 @@ public class Pickup : MonoBehaviour
         // Check if the collider belongs to the player (by tag)
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"Player picked up: {gameObject.name}");
-            
-            // Play the pickup sound if it is assigned:
-            if (pickupSound != null)
+            // Call the SceneManager's OnPickup method to handle the pickup logic
+            if (sceneManager != null)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                sceneManager.OnPickup(gameObject);
             }
-            
-            // Increment pickup counter and update label
-            pickupCount++;
-            UpdatePickupLabel();
-            
-            // Destroy the pickup object to hide it from the player.
-            Destroy(gameObject);
+            else
+            {
+                Debug.LogError("SceneManager reference is null! Cannot process pickup.");
+                // Fallback: destroy the pickup anyway to prevent it from being stuck
+                Destroy(gameObject);
+            }
         }
     }
 }

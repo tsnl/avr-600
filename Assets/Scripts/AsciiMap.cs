@@ -28,20 +28,20 @@ public class AsciiMap
   public List<Vector2Int> pickupPositions;
   public List<Vector2Int> endPositions;
   public Vector2Int startPosition;
-
   /// <summary>
   /// Default level - a simple 8x8 maze
   /// </summary>
-  public static readonly string Level0 = @"
-    ############
-    #S         #
-    #   ####   #
-    #   #  #   #
-    #   #  #  +#
-    #   #  #   #
-    #   ####   #
-    #         E#
-    ############
+  public static readonly string Level0 =
+    @"
+    ########
+    #E     #
+    # #### #
+    # #  # #
+    # #  #+#
+    # #  # #
+    # #### #
+    #     S#
+    ########
     ";
 
   public AsciiMap()

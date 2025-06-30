@@ -1147,6 +1147,10 @@ PrefabInstance:
       objectReference: {fileID: 1934499018}
     - target: {fileID: 749861089190569664, guid: ad762189cd4d7044a8360b639324f934, type: 3}
       propertyPath: failLevelName
+      value: GameOverFail
+      objectReference: {fileID: 0}
+    - target: {fileID: 749861089190569664, guid: ad762189cd4d7044a8360b639324f934, type: 3}
+      propertyPath: nextLevelName
       value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 749861089190569664, guid: ad762189cd4d7044a8360b639324f934, type: 3}

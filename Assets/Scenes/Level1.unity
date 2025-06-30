@@ -1151,7 +1151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 749861089190569664, guid: ad762189cd4d7044a8360b639324f934, type: 3}
       propertyPath: nextLevelName
-      value: Level2
+      value: GameOverWin
       objectReference: {fileID: 0}
     - target: {fileID: 749861089190569664, guid: ad762189cd4d7044a8360b639324f934, type: 3}
       propertyPath: pickupCounterLabel
